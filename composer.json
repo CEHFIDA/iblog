@@ -1,0 +1,24 @@
+{
+  "name": "selfreliance/iblog",
+  "type": "library",
+  "version": "1.0.0",
+  "description": "List of news for adminamazing",
+  "keywords": ["admin", "laravel"],
+  "homepage": "https://github.com/selfrelianceme/iblog",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Yura I",
+      "email": "fresh19101995@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.8"
+  },
+  "autoload": {
+    "psr-4": {"Selfreliance\\Iblog\\": "src/"}
+  }
+}
