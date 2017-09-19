@@ -3,12 +3,13 @@
 namespace Selfreliance\Iblog;
 
 use App\Http\Controllers\Controller;
-use App\Models\News;
+use Models\News;
+use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\Rule;
-use App\Models\News_Data;
-use Faker\Provider\File;
+use Models\News_Data;
+use Intervention\Image\ImageManager;
 
 class BlogController extends Controller
 {
@@ -20,89 +21,136 @@ class BlogController extends Controller
 
     public function destroy($id){
         $ModelNews = News::findOrFail($id);
-        //dd($ModelNews);
         $ModelNews_Data = News_Data::where('news_id', '=', $id)->get();
-        //dd($ModelNews_Data);
         foreach ($ModelNews_Data as $del) {
             $del->delete();
         }
-        $image_path = public_path()."/img/image/".$ModelNews->image;
-        unlink($image_path);
+
         $ModelNews->delete();
         return redirect()->route('AdminBlog')->with('status', 'Запись удалена!');
     }
 
 
-    public function update($id, Request $request)
+    public function update($news_id, Request $request)
     {
-        $ModelNews_Data = News_Data::where('id', '=', $id)->first();
-        $ModelNews = News::where('id','=',$ModelNews_Data->news_id)->first();
+        $this->validate($request, [
+            'image' => 'mimes:jpeg,jpg,png',
+            "title.'ru_RU'" => 'required',
+            "title.'en_EN'" => 'required',
+            "text.'ru_RU'" => 'required',
+            "text.'en_EN'" => 'required',
+        ]);
+
+        $ModelsOnDelete = News_Data::where('news_id','=', $news_id)->get();
+        foreach ($ModelsOnDelete as $delModel) {
+            $delModel->delete();
+        }
+
+        $ModelNews_Data_RU = new News_Data;
+        $ModelNews_Data_EN = new News_Data;
+
+        $ModelNews_Data_RU->lang = "ru_RU";
+        $ModelNews_Data_RU->news_id = $news_id;
+        $ModelNews_Data_RU->title = $request->input("title.'ru_RU'");
+        $ModelNews_Data_RU->text = $request->input("text.'ru_RU'");
+        $ModelNews_Data_RU->save();
+
+        $ModelNews_Data_EN->lang = "en_EN";
+        $ModelNews_Data_EN->news_id = $news_id;
+        $ModelNews_Data_EN->title = $request->input("title.'en_EN'");
+        $ModelNews_Data_EN->text = $request->input("text.'en_EN'");
+        $ModelNews_Data_EN->save();
+
+        $ModelNews = News::where('id','=',$news_id)->first();
 
 
         if($request->hasFile('image')) {
+            $manager = new ImageManager(array('driver' => 'gd'));
+            $image = $manager->make($request->file('image'));
             $file = $request->file('image');
-            $imageName = uniqid().".".$file->getClientOriginalExtension();
-
-            $file->move(base_path()."/public/img/image", $imageName);
-            $ModelNews->image = $imageName;
+            $imageDir = substr(md5(microtime()), mt_rand(0, 30), 2) . '/' . substr(md5(microtime()), mt_rand(0, 30), 2);
+            $imageName = uniqid() . "." . $file->getClientOriginalExtension();
+            \File::makeDirectory(base_path()."/public/img/image/".$imageDir, $mode = 0777, true, true);
+            $image->save(base_path()."/public/img/image/".$imageDir.'/'.$imageName);
+            $ModelNews->image = $imageDir.'/'.$imageName;
             $ModelNews->save();
         }
-
-        $news_id = $ModelNews_Data->news_id;
-        $ModelNews_Data->title = $request->input('title');
-        $ModelNews_Data->text = $request->input('text');
-        $ModelNews_Data->save();
 
         return redirect()->route('AdminBlogEdit', ["id"=>$news_id])->with('status', 'Запись обновлена!');
     }
 
 
     public function addEdit() {
-        $news = array(new News_Data(),new News_Data());
-        return view('iblog::add')->with(['news'=>$news]);
+        return view('iblog::add');
     }
 
 
-    public function add($lang,Request $request) {
+    public function add(Request $request) {
 
         $this->validate($request, [
-            'text' => 'required',
-            'title' => 'required',
-            'image' => 'mimes:jpeg,jpg,png'
+            'image' => 'mimes:jpeg,jpg,png',
+            "title.'ru_RU'" => 'required',
+            "title.'en_EN'" => 'required',
+            "text.'ru_RU'" => 'required',
+            "text.'en_EN'" => 'required',
         ]);
 
         $news = new News;
-        $news_data = new News_Data;
+        $news_data_ru = new News_Data;
+        $news_data_en = new News_Data;
+
         $imageName = null;
         if($request->hasFile('image')) {
+            $manager = new ImageManager(array('driver' => 'gd'));
+            $image = $manager->make($request->file('image'));
             $file = $request->file('image');
+            $imageDir = substr(md5(microtime()), mt_rand(0, 30), 2) . '/' . substr(md5(microtime()), mt_rand(0, 30), 2);
             $imageName = uniqid() . "." . $file->getClientOriginalExtension();
-            $file->move(base_path() . "/public/img/image", $imageName);
+            \File::makeDirectory(base_path()."/public/img/image/".$imageDir, $mode = 0777, true, true);
+            $image->save(base_path()."/public/img/image/".$imageDir.'/'.$imageName);
         }else {
             $imageName = 'no-image-available.jpg';
         }
 
         $news->date = date('Y-m-d');
-        $news->image = $imageName;
+        $news->image = $imageDir.'/'.$imageName;
         $news->save();
 
-        $news_data->news_id = $news->id;
-        $news_data->title = $request->input('title');
-        $news_data->text = $request->input('text');
-        $news_data->lang = $lang;
-        $news_data->save();
+        $news_data_en->news_id = $news->id;
+        $news_data_en->title = $request->input("title.'en_EN'");
+        $news_data_en->text = $request->input("text.'en_EN'");
+        $news_data_en->lang = "en_EN";
+        $news_data_en->save();
+
+        $news_data_ru->news_id = $news->id;
+        $news_data_ru->title = $request->input("title.'ru_RU'");
+        $news_data_ru->text = $request->input("text.'ru_RU'");
+        $news_data_ru->lang = "ru_RU";
+        $news_data_ru->save();
+        $news_data_ru->save();
 
         return redirect()->route('AdminBlog')->with('status', 'Запись добавлена!');
-
-
     }
 
     public function edit($id)
     {
-        $news = News::findOrFail($id);
         $news_data = News_Data::where('news_id', '=', $id)->get();
-
-
-        return view('iblog::edit')->with(["editnews"=>$news_data, "news"=>$news]);
+        //dd($news_data);
+        $newsArray = array();
+        if($news_data->count() < 2) {
+            $news_data = News_Data::where('news_id', '=', $id)->first();
+            if($news_data->lang == "en_EN") {
+                $newsArray = array('en_EN'=>$news_data, 'ru_RU'=> new News_Data);
+                $newsArray['ru_RU']->lang = "ru_RU";
+                $newsArray['ru_RU']->news_id = $id;
+            }else{
+                $newsArray = array('ru_RU'=>$news_data, 'en_EN'=> new News_Data);
+                $newsArray['en_EN']->lang = "en_EN";
+                $newsArray['en_EN']->news_id = $id;
+            }
+            return view('iblog::edit')->with(["editnews"=>$newsArray]);
+        }
+        $newsArray = array($news_data[0]->lang => $news_data[0], $news_data[1]->lang => $news_data[1]);
+        return view('iblog::edit')->with(["editnews"=>$newsArray]);
     }
 }

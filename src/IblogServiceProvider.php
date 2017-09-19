@@ -1,6 +1,5 @@
 <?php
 namespace Selfreliance\Iblog;
-
 use Illuminate\Support\ServiceProvider;
 
 class IblogServiceProvider extends ServiceProvider
@@ -20,7 +19,7 @@ class IblogServiceProvider extends ServiceProvider
 
 
         //Миграция
-        //$this->loadMigrationsFrom(__DIR__ . '/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/migrations');
     }
 
     /**
