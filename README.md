@@ -21,3 +21,5 @@ Go to `http://myapp/admin/blog` to view admin amazing
 ```
 php artisan vendor:publish
 ``` 
+
+Example controller in file 'NewsController.php'
