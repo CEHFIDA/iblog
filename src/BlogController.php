@@ -3,12 +3,12 @@
 namespace Selfreliance\Iblog;
 
 use App\Http\Controllers\Controller;
-use Models\News;
+use App\Models\News;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\Rule;
-use Models\News_Data;
+use App\Models\News_Data;
 use Intervention\Image\ImageManager;
 
 class BlogController extends Controller
@@ -33,13 +33,20 @@ class BlogController extends Controller
 
     public function update($news_id, Request $request)
     {
+        $messages = [
+            "title.'ru_RU'.required" => 'Поле "Заголовок" во вкладке "Russian" не должно быть пустым',
+            "text.'ru_RU'.required" => 'Поле "Текст" во вкладке "Russian" не должно быть пустым',
+            "title.'en_EN'.required" => 'Поле "Заголовок" во вкладке "English" не должно быть пустым',
+            "text.'en_EN'.required" => 'Поле "Текст" во вкладке "English" не должно быть пустым',
+        ];
+
         $this->validate($request, [
             'image' => 'mimes:jpeg,jpg,png',
             "title.'ru_RU'" => 'required',
-            "title.'en_EN'" => 'required',
             "text.'ru_RU'" => 'required',
+            "title.'en_EN'" => 'required',
             "text.'en_EN'" => 'required',
-        ]);
+        ], $messages);
 
         $ModelsOnDelete = News_Data::where('news_id','=', $news_id)->get();
         foreach ($ModelsOnDelete as $delModel) {
@@ -86,14 +93,19 @@ class BlogController extends Controller
 
 
     public function add(Request $request) {
-
+        $messages = [
+            "title.'ru_RU'.required" => 'Поле "Заголовок" во вкладке "Russian" не должно быть пустым',
+            "text.'ru_RU'.required" => 'Поле "Текст" во вкладке "Russian" не должно быть пустым',
+            "title.'en_EN'.required" => 'Поле "Заголовок" во вкладке "English" не должно быть пустым',
+            "text.'en_EN'.required" => 'Поле "Текст" во вкладке "English" не должно быть пустым',
+        ];
         $this->validate($request, [
             'image' => 'mimes:jpeg,jpg,png',
             "title.'ru_RU'" => 'required',
-            "title.'en_EN'" => 'required',
             "text.'ru_RU'" => 'required',
+            "title.'en_EN'" => 'required',
             "text.'en_EN'" => 'required',
-        ]);
+        ], $messages);
 
         $news = new News;
         $news_data_ru = new News_Data;
@@ -126,7 +138,6 @@ class BlogController extends Controller
         $news_data_ru->title = $request->input("title.'ru_RU'");
         $news_data_ru->text = $request->input("text.'ru_RU'");
         $news_data_ru->lang = "ru_RU";
-        $news_data_ru->save();
         $news_data_ru->save();
 
         return redirect()->route('AdminBlog')->with('status', 'Запись добавлена!');

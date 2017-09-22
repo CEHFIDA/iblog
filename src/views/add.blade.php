@@ -28,7 +28,6 @@
                                     <input type="file" name="image" id="image" value="" placeholder="" class="form-control form-control-line">
                                 </div>
                             </div>
-
                         </div>
 
                         <ul class="nav nav-tabs">
@@ -46,9 +45,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="text" class="col-md-12">Текст</label>
+                                        <label for="text1" class="col-md-12">Текст</label>
                                         <div class="col-md-12">
-                                            <input type="text" id="text" name="text['ru_RU']" value="" class="form-control form-control-line">
+                                            <textarea class="textarea_editor form-control" name="text['ru_RU']" id="text1" rows="15"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -62,10 +61,11 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="text" class="col-md-12">Текст</label>
+                                        <label for="text2" class="col-md-12">Текст</label>
                                         <div class="col-md-12">
-                                            <input type="text" id="text" name="text['en_EN']" value="" class="form-control form-control-line">
+                                            <textarea class="textarea_editor1 form-control" name="text['en_EN']" id="text2" rows="15"></textarea>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                         {{ method_field('PUT') }}
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <button class="btn btn-success">Обновить запись</button>
+                                <button class="btn btn-success">Добавить запись</button>
                             </div>
                         </div>
                     </form>
