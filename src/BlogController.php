@@ -34,10 +34,10 @@ class BlogController extends Controller
     public function update($news_id, Request $request)
     {
         $messages = [
-            "title.'ru_RU'.required" => 'Поле "Заголовок" во вкладке "Russian" не должно быть пустым',
-            "text.'ru_RU'.required" => 'Поле "Текст" во вкладке "Russian" не должно быть пустым',
-            "title.'en_EN'.required" => 'Поле "Заголовок" во вкладке "English" не должно быть пустым',
-            "text.'en_EN'.required" => 'Поле "Текст" во вкладке "English" не должно быть пустым',
+            "title.'ru_RU'.required" => 'Поле "Заголовок" не должно быть пустым',
+            "text.'ru_RU'.required" => 'Поле "Текст" не должно быть пустым',
+            "title.'en_EN'.required" => 'Поле "Заголовок" не должно быть пустым',
+            "text.'en_EN'.required" => 'Поле "Текст" не должно быть пустым',
         ];
 
         $this->validate($request, [
@@ -94,10 +94,10 @@ class BlogController extends Controller
 
     public function add(Request $request) {
         $messages = [
-            "title.'ru_RU'.required" => 'Поле "Заголовок" во вкладке "Russian" не должно быть пустым',
-            "text.'ru_RU'.required" => 'Поле "Текст" во вкладке "Russian" не должно быть пустым',
-            "title.'en_EN'.required" => 'Поле "Заголовок" во вкладке "English" не должно быть пустым',
-            "text.'en_EN'.required" => 'Поле "Текст" во вкладке "English" не должно быть пустым',
+            "title.'ru_RU'.required" => 'Поле "Заголовок" не должно быть пустым',
+            "text.'ru_RU'.required" => 'Поле "Текст" не должно быть пустым',
+            "title.'en_EN'.required" => 'Поле "Заголовок" не должно быть пустым',
+            "text.'en_EN'.required" => 'Поле "Текст" не должно быть пустым',
         ];
         $this->validate($request, [
             'image' => 'mimes:jpeg,jpg,png',

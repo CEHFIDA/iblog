@@ -12,13 +12,13 @@
 
                 <!--second tab-->
                 <div class="card-block">
-                    @if ($errors->any())
-                        @foreach ($errors->all() as $error)
-                            <div class="alert alert-danger">
-                                {{ $error }}
-                            </div>
-                        @endforeach
-                    @endif
+                    {{--@if ($errors->any())--}}
+                        {{--@foreach ($errors->all() as $error)--}}
+                            {{--<div class="alert alert-danger">--}}
+                                {{--{{ $error }}--}}
+                            {{--</div>--}}
+                        {{--@endforeach--}}
+                    {{--@endif--}}
 
                     <form action="{{route('AdminBlogAdd')}}" method="POST" class="form-horizontal form-material" id="main" enctype="multipart/form-data">
                         <div class="box-body">
@@ -27,6 +27,11 @@
                                 <div class="col-md-12">
                                     <input type="file" name="image" id="image" value="" placeholder="" class="form-control form-control-line">
                                 </div>
+                                @if($errors->has("image"))
+                                    <div class="alert alert-danger">
+                                        {{ $errors->first("image") }}
+                                    </div>
+                                @endif
                             </div>
                         </div>
 
@@ -39,33 +44,52 @@
                             <div class="tab-pane active" id="tab1">
                                 <div class="box-body pad">
                                     <div class="form-group">
-                                        <label for="title" class="col-md-12">Заголовок</label>
+                                        <label for="titleRU" class="col-md-12">Заголовок</label>
                                         <div class="col-md-12">
-                                            <input type="text" value="" placeholder="" class="form-control form-control-line" name="title['ru_RU']" id="title">
+                                            <input type="text" value="" placeholder="" class="form-control form-control-lg" name="title['ru_RU']" id="titleRU">
                                         </div>
+                                        @if($errors->has("title.'ru_RU'"))
+                                            <div class="alert alert-danger">
+                                                {{ $errors->first("title.'ru_RU'") }}
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="form-group">
-                                        <label for="text1" class="col-md-12">Текст</label>
+                                        <label for="textRU" class="col-md-12">Текст</label>
                                         <div class="col-md-12">
-                                            <textarea class="textarea_editor form-control" name="text['ru_RU']" id="text1" rows="15"></textarea>
+                                            <textarea class="textarea_editor form-control" name="text['ru_RU']" id="textRU" rows="15"></textarea>
                                         </div>
+                                        @if($errors->has("text.'ru_RU'"))
+                                            <div class="alert alert-danger">
+                                                {{ $errors->first("text.'ru_RU'") }}
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-pane" id="tab2">
                                 <div class="box-body pad">
                                     <div class="form-group">
-                                        <label for="title" class="col-md-12">Заголовок</label>
+                                        <label for="titleEN" class="col-md-12">Заголовок</label>
                                         <div class="col-md-12">
-                                            <input type="text" value="" placeholder="" class="form-control form-control-line" name="title['en_EN']" id="title">
+                                            <input type="text" value="" placeholder="" class="form-control form-control-line" name="title['en_EN']" id="titleEN">
                                         </div>
+                                        @if($errors->has("title.'en_EN'"))
+                                            <div class="alert alert-danger">
+                                                {{ $errors->first("title.'en_EN'") }}
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="form-group">
-                                        <label for="text2" class="col-md-12">Текст</label>
+                                        <label for="textEN" class="col-md-12">Текст</label>
                                         <div class="col-md-12">
-                                            <textarea class="textarea_editor1 form-control" name="text['en_EN']" id="text2" rows="15"></textarea>
+                                            <textarea class="textarea_editor1 form-control" name="text['en_EN']" id="textEN" rows="15"></textarea>
                                         </div>
-
+                                        @if($errors->has("text.'en_EN'"))
+                                            <div class="alert alert-danger">
+                                                {{ $errors->first("text.'en_EN'") }}
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +98,7 @@
                         {{ method_field('PUT') }}
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <button class="btn btn-success">Добавить запись</button>
+                                <button class="btn btn-success" id="addNews">Добавить запись</button>
                             </div>
                         </div>
                     </form>
