@@ -9,10 +9,6 @@ Install via composer
 composer require selfreliance/iblog
 ```
 
-Add Service Provider to `config/app.php` in `providers` section
-```php
-Selfreliance\Iblog\IblogServiceProvider::class,
-```
 
 Go to `http://myapp/admin/blog` to view admin amazing
 
