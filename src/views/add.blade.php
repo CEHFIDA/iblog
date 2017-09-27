@@ -13,19 +13,19 @@
                 <!--second tab-->
                 <div class="card-block">
                     {{--@if ($errors->any())--}}
-                        {{--@foreach ($errors->all() as $error)--}}
-                            {{--<div class="alert alert-danger">--}}
-                                {{--{{ $error }}--}}
-                            {{--</div>--}}
-                        {{--@endforeach--}}
+                    {{--@foreach ($errors->all() as $error)--}}
+                    {{--<div class="alert alert-danger">--}}
+                    {{--{{ $error }}--}}
+                    {{--</div>--}}
+                    {{--@endforeach--}}
                     {{--@endif--}}
 
-                    <form action="{{route('AdminBlogAdd')}}" method="POST" class="form-horizontal form-material" id="main" enctype="multipart/form-data">
+                    <form action="{{route('AdminBlogAdd')}}" method="POST" class="form-horizontal" id="main" enctype="multipart/form-data">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="image" class="col-md-12">Картинка</label>
                                 <div class="col-md-12">
-                                    <input type="file" name="image" id="image" value="" placeholder="" class="form-control form-control-line">
+                                    <input type="file" name="image" id="image" value="" placeholder="" class="form-control">
                                 </div>
                                 @if($errors->has("image"))
                                     <div class="alert alert-danger">
@@ -46,7 +46,7 @@
                                     <div class="form-group">
                                         <label for="titleRU" class="col-md-12">Заголовок</label>
                                         <div class="col-md-12">
-                                            <input type="text" value="" placeholder="" class="form-control form-control-lg" name="title['ru_RU']" id="titleRU">
+                                            <input type="text" value="" placeholder="" class="form-control" name="title['ru_RU']" id="titleRU">
                                         </div>
                                         @if($errors->has("title.'ru_RU'"))
                                             <div class="alert alert-danger">
@@ -72,7 +72,7 @@
                                     <div class="form-group">
                                         <label for="titleEN" class="col-md-12">Заголовок</label>
                                         <div class="col-md-12">
-                                            <input type="text" value="" placeholder="" class="form-control form-control-line" name="title['en_EN']" id="titleEN">
+                                            <input type="text" value="" placeholder="" class="form-control" name="title['en_EN']" id="titleEN">
                                         </div>
                                         @if($errors->has("title.'en_EN'"))
                                             <div class="alert alert-danger">

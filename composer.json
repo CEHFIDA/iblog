@@ -1,7 +1,7 @@
 {
   "name": "selfreliance/iblog",
   "type": "library",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "List of news for adminamazing",
   "keywords": ["admin", "laravel"],
   "homepage": "https://github.com/selfrelianceme/iblog",
@@ -12,6 +12,13 @@
       "email": "fresh19101995@gmail.com"
     }
   ],
+  "extra": {
+      "laravel":{
+          "providers": [
+            "Selfreliance\\Iblog\\IblogServiceProvider"
+          ]
+      }
+  },
   "require": {
     "php": ">=5.6.0"
   },
