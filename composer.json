@@ -1,7 +1,7 @@
 {
   "name": "selfreliance/iblog",
   "type": "library",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "List of news for adminamazing",
   "keywords": ["admin", "laravel"],
   "homepage": "https://github.com/selfrelianceme/iblog",
@@ -21,7 +21,8 @@
   },
   "require": {
     "php": ">=5.6.0",
-    "selfreliance/adminamazing": ">=1.0.0"
+    "selfreliance/adminamazing": ">=1.0.0",
+    "intervention/image": ">=2.0.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.8"
