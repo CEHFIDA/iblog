@@ -13,6 +13,11 @@ use Intervention\Image\ImageManager;
 
 class BlogController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('CheckAccess');
+    }
+    
     public function index()
     {
         $news = News::orderBy('created_at', 'desc')->paginate(10);
