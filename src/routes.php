@@ -1,5 +1,5 @@
 <?php
-Route::group(['prefix' => 'admin/blog', 'middleware' => 'web'], function() {
+Route::group(['prefix' => config('adminamazing.path').'/blog', 'middleware' => 'web'], function() {
     Route::get('/', 'selfreliance\iblog\BlogController@index')->name('AdminBlog');
     Route::delete('{id}', 'selfreliance\iblog\BlogController@destroy')->name('AdminBlogDeleted');
     Route::put('/{news_id}', 'selfreliance\iblog\BlogController@update')->name('AdminBlogUpdate');
