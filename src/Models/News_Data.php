@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Selfreliance\iblog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,6 +13,6 @@ class News_Data extends Model
 
     public function news()
     {
-        return $this->belongsTo('App\Models\News');
+        return $this->belongsTo('Iblog\Models\News');
     }
 }

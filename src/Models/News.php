@@ -11,8 +11,8 @@ class News extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function  news_data()
+    public function news_data()
     {
-        return $this->hasMany('iblog\Models\News_Data');
+        return $this->hasMany('Iblog\Models\News_Data');
     }
 }
