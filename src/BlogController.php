@@ -3,12 +3,12 @@
 namespace Selfreliance\Iblog;
 
 use App\Http\Controllers\Controller;
-use App\Models\News;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\Rule;
-use App\Models\News_Data;
+use Selfreliance\Iblog\Models\News;
+use Selfreliance\Iblog\Models\News_Data;
 use Intervention\Image\ImageManager;
 
 class BlogController extends Controller

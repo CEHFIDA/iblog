@@ -27,8 +27,8 @@
                                         <td>{{$oneNews->image}}</td>
                                         <td class="text-nowrap">                                            
                                             <form action="{{ route('AdminBlogDeleted', $oneNews->id) }}" method="POST">
-                                                {{ method_field('DELETE') }}
-                                                {{ csrf_field() }}
+                                                 {{ method_field('DELETE') }}
+                                                 {{ csrf_field() }}
                                                  <a href="{{ route('AdminBlogEdit', $oneNews->id) }}" data-toggle="tooltip" data-original-title="Редактировать"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
                                                 <button class="btn btn-link" data-toggle="tooltip" data-original-title="Удалить"><i class="fa fa-close text-danger"></i></button>
                                             </form>
