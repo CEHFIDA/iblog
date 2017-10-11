@@ -7,12 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class News_Data extends Model
 {
+    //
     use SoftDeletes;
-
-    protected $dates = ['deleted_at'];
-
-    public function news()
-    {
-        return $this->belongsTo('Iblog\Models\News');
-    }
 }

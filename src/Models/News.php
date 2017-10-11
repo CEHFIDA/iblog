@@ -3,16 +3,26 @@
 namespace Selfreliance\iblog\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class News extends Model
 {
+    //
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+	public function news_data(){
+        return $this->hasMany('App\Models\News_Data');
+    }    
 
-    public function news_data()
+
+	public function getCreatedAtAttribute($date)
     {
-        return $this->hasMany('Iblog\Models\News_Data');
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d M Y');
     }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d M Y');
+    }    
 }

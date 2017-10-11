@@ -7,16 +7,20 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
-                    <h4 class="card-title">@yield('pageTitle')</h4>
-                    <div class="text-right">
-                        <a class="has-arrow" href="{{ route('AdminBlogEditAdd') }}" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i><span class="hide-menu">Добавить запись</span></a>
+                    <div class="clearfix">
+                        <h4 class="card-title pull-left">@yield('pageTitle')</h4>
+                        <div class="text-right pull-right">
+                            <a class="has-arrow" href="{{ route('AdminBlogEditAdd') }}" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i><span class="hide-menu">Добавить запись</span></a>
+                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Заголовок</th>
                                     <th>Картинка</th>
+                                    <th>Дата</th>
                                     <th class="text-nowrap">Действие</th>
                                 </tr>
                             </thead>
@@ -24,7 +28,9 @@
                                 @foreach($news as $oneNews)
                                     <tr>
                                         <td>{{$oneNews->id}}</td>
+                                        <td>{{$oneNews->title}}</td>
                                         <td>{{$oneNews->image}}</td>
+                                        <td>{{$oneNews->created_at}}</td>
                                         <td class="text-nowrap">                                            
                                             <form action="{{ route('AdminBlogDeleted', $oneNews->id) }}" method="POST">
                                                  {{ method_field('DELETE') }}
