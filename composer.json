@@ -1,15 +1,15 @@
 {
   "name": "selfreliance/iblog",
   "type": "library",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "List of news for adminamazing",
   "keywords": ["admin", "laravel"],
   "homepage": "https://github.com/selfrelianceme/iblog",
   "license": "MIT",
   "authors": [
     {
-      "name": "Yura I",
-      "email": "fresh19101995@gmail.com"
+      "name": "Vlad Kit",
+      "email": "vladwebkit@gmail.com"
     }
   ],
   "extra": {
