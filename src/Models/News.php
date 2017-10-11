@@ -12,7 +12,7 @@ class News extends Model
     use SoftDeletes;
 
 	public function news_data(){
-        return $this->hasMany('App\Models\News_Data');
+        return $this->hasMany('Selfreliance\Iblog\Models\News_Data');
     }    
 
 
