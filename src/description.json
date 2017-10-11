@@ -1,7 +1,4 @@
 {
-  "route": "AdminBlog",
-  "description": "Блог",
-  "icon": "mdi mdi-message-text",
-  "config": "iblog.roles",
-  "prefix": "admin/blog"
+  "package": "blog",
+  "name": "Блог"
 }
