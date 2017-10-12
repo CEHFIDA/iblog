@@ -1,4 +1,5 @@
 {
   "package": "blog",
-  "name": "Блог"
+  "name": "Блог",
+  "icon": "mdi mdi-newspaper"
 }
