@@ -30,10 +30,15 @@ class BlogController extends Controller
         return view('iblog::home')->with(["news"=>$news]);
     }
 
-    public function destroy($id){
-        $ModelNews = News::findOrFail($id);
+    public function destroy(Request $request){
+        $this->validate($request, [
+            'id' => 'required'
+        ]);
+
+        $ModelNews = News::findOrFail($request->input('id'));
         $ModelNews->news_data()->delete();
         $ModelNews->delete();
+
         return redirect()->route('AdminBlog')->with('status', 'Запись удалена!');
     }
 
