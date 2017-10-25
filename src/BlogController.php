@@ -40,7 +40,9 @@ class BlogController extends Controller
         $ModelNews->news_data()->delete();
         $ModelNews->delete();
 
-        return redirect()->route('AdminBlog')->with('status', 'Запись удалена!');
+        flash()->success('Запись удалена!');
+
+        return redirect()->route('AdminBlog');
     }
 
     /**
@@ -96,7 +98,9 @@ class BlogController extends Controller
             $ModelNews->save();
         }
 
-        return redirect()->route('AdminBlogEdit', ["id"=>$ModelNews->id])->with('status', ($news_id==0)?'Запись добавлена':'Запись обновлена!');
+        flash()->success(($news_id==0)?'Запись добавлена':'Запись обновлена!');
+
+        return redirect()->route('AdminBlogEdit', ["id"=>$ModelNews->id]);
     }
 
     /**
