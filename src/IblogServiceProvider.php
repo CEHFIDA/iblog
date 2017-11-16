@@ -11,15 +11,11 @@ class IblogServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
         include __DIR__ . '/routes.php';
         $this->app->make('Selfreliance\Iblog\BlogController');
         $this->loadViewsFrom(__DIR__ . '/views', 'iblog');
-
-
-
-        //Миграция
         $this->loadMigrationsFrom(__DIR__ . '/migrations');
+        $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'translate-blog');
     }
 
     /**

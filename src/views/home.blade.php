@@ -4,7 +4,7 @@
 @section('content')
     <script>
     var route = '{{ route('AdminBlogDelete') }}';
-    var message = 'Вы точно хотите удалить данную новость?';
+    message = 'Вы точно хотите удалить данную новость?';
     </script>
     <div class="row">
         <!-- Column -->

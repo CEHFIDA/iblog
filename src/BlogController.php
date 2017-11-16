@@ -40,7 +40,7 @@ class BlogController extends Controller
         $ModelNews->news_data()->delete();
         $ModelNews->delete();
 
-        flash()->success('Запись удалена!');
+        flash()->success( trans('translate-blog::blog.deletedNews') );
 
         return redirect()->route('AdminBlog');
     }
@@ -98,7 +98,7 @@ class BlogController extends Controller
             $ModelNews->save();
         }
 
-        flash()->success(($news_id==0)?'Запись добавлена':'Запись обновлена!');
+        flash()->success( ($news_id==0) ? trans('translate-blog::blog.createdNews') : trans('translate-blog::blog.updatedNews') );
 
         return redirect()->route('AdminBlogEdit', ["id"=>$ModelNews->id]);
     }

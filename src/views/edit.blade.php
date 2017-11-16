@@ -65,4 +65,12 @@
             </form>          
         </div>
     </div>
+
+    <script src="{{ asset('vendor/adminamazing/assets/plugins/html5-editor/wysihtml5-0.3.0.js') }}"></script>
+    <script src="{{ asset('vendor/adminamazing/assets/plugins/html5-editor/bootstrap-wysihtml5.js') }}"></script>
+    
+    <script>
+        $('.textarea_editor').wysihtml5(),
+        $('.textarea_editor1').wysihtml5();
+    </script>
 @endsection
