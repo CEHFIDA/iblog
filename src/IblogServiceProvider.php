@@ -15,7 +15,6 @@ class IblogServiceProvider extends ServiceProvider
         $this->app->make('Selfreliance\Iblog\BlogController');
         $this->loadViewsFrom(__DIR__ . '/views', 'iblog');
         $this->loadMigrationsFrom(__DIR__ . '/migrations');
-        $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'translate-blog');
     }
 
     /**

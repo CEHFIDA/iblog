@@ -10,10 +10,6 @@ use Selfreliance\Iblog\Models\News_Data;
 
 class BlogController extends Controller
 {
-    /**
-     * Index
-     * @return view home with news
-    */
     public function index()
     {
         $news = News::orderBy('id', 'desc')->paginate(10);
@@ -26,31 +22,20 @@ class BlogController extends Controller
             }
         );
 
-        return view('iblog::home')->with(["news"=>$news]);
+        return view('iblog::home', compact('news'));
     }
 
-    /**
-     * Destroy news
-     * @param int $id
-     * @return mixed
-    */
     public function destroy($id)
     {
         $ModelNews = News::findOrFail($id);
         $ModelNews->news_data()->delete();
         $ModelNews->delete();
 
-        flash()->success( trans('translate-blog::blog.deletedNews') );
+        flash()->success('Новость удалена');
 
         return redirect()->route('AdminBlog');
     }
 
-    /**
-     * Update news
-     * @param int $news_id
-     * @param request $request
-     * @return mixed
-    */
     public function update($news_id, Request $request)
     {
         $this->validate($request, [
@@ -98,33 +83,20 @@ class BlogController extends Controller
             $ModelNews->save();
         }
 
-        flash()->success( ($news_id==0) ? trans('translate-blog::blog.createdNews') : trans('translate-blog::blog.updatedNews') );
+        flash()->success( ($news_id==0) ? 'Новость успешно создана' : 'Новость успешно обновлена');
 
         return redirect()->route('AdminBlogEdit', ["id"=>$ModelNews->id]);
     }
-
-    /**
-     * addEdit
-     * @return view with Post($post), Data($DataLang), Language($Language)
-    */
+    
     public function addEdit()
     {
         $Post = false;
         $DataLang = "";
         $Language = \LaravelGettext::getSupportedLocales();
 
-        return view('iblog::edit')->with([
-            "Post"=>$Post,
-            "Data"=>$DataLang,
-            "Language"=>$Language
-        ]);
+        return view('iblog::edit', compact('Post', 'DataLang', 'Language'));
     }
 
-    /**
-     * Edit news
-     * @param int $id
-     * @return view with Post($post), Data($DataLang), Language($Language)
-    */
     public function edit($id)
     {
         $Post = News::find($id);
@@ -136,14 +108,9 @@ class BlogController extends Controller
                 $DataLang[$row->lang] = $row;
             }
         );
-        // dump($DataLang);
 
         $Language = \LaravelGettext::getSupportedLocales();
 
-        return view('iblog::edit')->with([
-            "Post"=>$Post,
-            "Data"=>$DataLang,
-            "Language"=>$Language
-        ]);
+        return view('iblog::edit', compact('Post', 'DataLang', 'Language'));
     }
 }

@@ -2,20 +2,21 @@
 
 @section('pageTitle', 'Блог')
 @section('content')
-    <script>
-    var route = '{{ route('AdminBlogDelete') }}';
-    message = 'Вы точно хотите удалить данную новость?';
-    </script>
+    @push('scripts')
+        <script>
+            var route = '{{ route('AdminBlogDelete') }}';
+            message = 'Вы точно хотите удалить данную новость?';
+        </script>
+    @endpush
+    @push('display')
+        <a class="has-arrow" href="{{ route('AdminBlogEditAdd') }}" aria-expanded="false"><button type="submit" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Создать запись</button></a>
+    @endpush
     <div class="row">
-        <!-- Column -->
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
                     <div class="clearfix">
                         <h4 class="card-title pull-left">@yield('pageTitle')</h4>
-                        <div class="text-right pull-right">
-                            <a class="has-arrow" href="{{ route('AdminBlogEditAdd') }}" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i><span class="hide-menu">Добавить запись</span></a>
-                        </div>
                     </div>
                     @if(count($news) > 0)
                     <div class="table-responsive">
@@ -48,8 +49,8 @@
                         </table>
                     </div>
                     @else
-                    <div class="alert alert-warning text-center">
-                        <h4>Новостей не найдено!</h4>
+                    <div class="alert text-center">
+                        <h3 class="text-info"><i class="fa fa-exclamation-circle"></i> Information</h3> На данный момент отсутствуют новости
                     </div>
                     @endif
                 </div>
@@ -58,6 +59,5 @@
                 {{ $news->links('vendor.pagination.bootstrap-4') }}
             </nav>
         </div>
-        <!-- Column -->    
     </div>
 @endsection
