@@ -9,4 +9,8 @@ class News_Data extends Model
 {
     //
     use SoftDeletes;
+    
+    public function news(){
+        return $this->hasOne('Selfreliance\Iblog\Models\News', 'id', 'news_id');
+    }
 }
