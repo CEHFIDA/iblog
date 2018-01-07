@@ -38,29 +38,25 @@ class BlogController extends Controller
 
     public function update($news_id, Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required|min:2',
-            'text' => 'required|min:2',
-            'image' => 'mimes:jpeg,jpg,png'
-        ]);
+        // $this->validate($request, [
+        //     'title' => 'required|min:2',
+        //     'text' => 'required|min:2',
+        //     'image' => 'mimes:jpeg,jpg,png'
+        // ]);
 
-        if($news_id == 0)
-        {
+        if($news_id == 0){
             $ModelNews = new News;
             $ModelNews->image = "";
             $ModelNews->date = "2017-10-11";
             $ModelNews->save();
-        }
-        else
-        {
+        }else{
             $ModelNews = News::find($news_id);
             $ModelNews->news_data()->delete();
         }
 
-        foreach($request->input('title') as $key=>$value)
-        {
-            if($value != '')
-            {
+
+        foreach($request->input('title') as $key=>$value){
+            if($value != ''){
                 $model = new News_Data;
                 $model->lang = $key;
                 $model->title = $value;
@@ -70,8 +66,9 @@ class BlogController extends Controller
             }
         }
 
-        if($request->hasFile('image'))
-        {
+
+
+        if($request->hasFile('image')){
             $manager = new ImageManager(array('driver' => 'gd'));
             $image = $manager->make($request->file('image'));
             $file = $request->file('image');
@@ -82,6 +79,8 @@ class BlogController extends Controller
             $ModelNews->image = "files/news/".$imageDir.'/'.$imageName;
             $ModelNews->save();
         }
+
+        
 
         flash()->success( ($news_id==0) ? 'Новость успешно создана' : 'Новость успешно обновлена');
 
